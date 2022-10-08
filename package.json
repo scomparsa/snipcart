@@ -11,6 +11,9 @@
     "lint-staged": "lint-staged",
     "commitlint": "commitlint --config commitlint.config.js -e -V"
   },
+  "repository": {
+    "url": "https://github.com/scomparsa/snipcart"
+  },
   "engines": {
     "node": ">=14.19.0"
   },
