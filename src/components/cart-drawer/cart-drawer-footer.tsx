@@ -11,7 +11,7 @@ export default function CartDrawerFooter() {
           </Text>
           <HStack justify="space-between" width="100%">
             <Text>Total</Text>
-            <Text>200</Text>
+            <Text>$200</Text>
           </HStack>
           <Button width="100%" colorScheme="blue">
             Checkout
