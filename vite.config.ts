@@ -1,3 +1,4 @@
+import path from 'path'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { name } from './package.json'
@@ -6,6 +7,11 @@ console.log('name', name)
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   plugins: [react()],
+  resolve: {
+    alias: {
+      assets: path.resolve(__dirname, 'src/assets'),
+    },
+  },
   base: mode === 'production' ? `/${name}/` : '/',
   build: {
     // Set this for gh-pages deploy dir

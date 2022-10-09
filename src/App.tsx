@@ -1,7 +1,13 @@
-import { Center } from '@chakra-ui/react'
+import { Center, VStack } from '@chakra-ui/react'
+import CartDrawer from './components/cart-drawer'
 
-function App() {
-  return <Center>React Shopping Cart</Center>
+export default function App() {
+  return (
+    <Center>
+      <VStack>
+        <>React Shopping Cart</>
+        <CartDrawer />
+      </VStack>
+    </Center>
+  )
 }
-
-export default App
