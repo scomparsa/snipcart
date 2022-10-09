@@ -8,7 +8,7 @@ export default function CartDrawerBody() {
     <DrawerBody>
       <List>
         <ListItem marginLeft="-25px" marginRight="-25px" padding="35px" borderBottom="1px solid lightgray">
-          <VStack align="start" spacing="2">
+          <VStack align="start" spacing={2}>
             <Flex justify="space-between" align="center" width="100%">
               <HStack>
                 <Image alt="starry-night" htmlWidth="40px" objectFit="cover" src={starryNightImgUrl} />
