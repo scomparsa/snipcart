@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Drawer, DrawerCloseButton, DrawerContent, DrawerHeader, DrawerOverlay } from '@chakra-ui/react'
 import CartDrawerBody from './cart-drawer-body'
 import CartDrawerFooter from './cart-drawer-footer'
@@ -7,7 +8,7 @@ interface Props {
   onClose: () => void
 }
 
-export default function CartDrawer({ isOpen, onClose }: Props) {
+export default memo<Props>(({ isOpen, onClose }: Props) => {
   return (
     <Drawer size="md" isOpen={isOpen} onClose={onClose}>
       <DrawerOverlay />
@@ -21,4 +22,4 @@ export default function CartDrawer({ isOpen, onClose }: Props) {
       </DrawerContent>
     </Drawer>
   )
-}
+})

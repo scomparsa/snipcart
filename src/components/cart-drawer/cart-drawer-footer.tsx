@@ -1,7 +1,11 @@
+import { memo, useContext } from 'react'
 import { ArrowForwardIcon } from '@chakra-ui/icons'
 import { Button, Container, DrawerFooter, HStack, Text, VStack } from '@chakra-ui/react'
+import Context, { ContextType } from '../../context'
 
-export default function CartDrawerFooter() {
+export default memo(() => {
+  const { total } = useContext(Context) as ContextType
+
   return (
     <DrawerFooter>
       <Container>
@@ -10,8 +14,8 @@ export default function CartDrawerFooter() {
             Shipping and taxes will be calculated at checkout.
           </Text>
           <HStack justify="space-between" width="100%">
-            <Text>Total</Text>
-            <Text>$200</Text>
+            <Text fontWeight="bold">Total</Text>
+            <Text fontWeight="bold">{`$${total}`}</Text>
           </HStack>
           <Button width="100%" colorScheme="blue">
             Checkout
@@ -21,4 +25,4 @@ export default function CartDrawerFooter() {
       </Container>
     </DrawerFooter>
   )
-}
+})
