@@ -11,6 +11,10 @@
     "lint-staged": "lint-staged",
     "commitlint": "commitlint --config commitlint.config.js -e -V"
   },
+  "author": {
+    "name": "Scomparsa",
+    "email": "scomparsa.6k@gmail.com"
+  },
   "repository": {
     "url": "https://github.com/scomparsa/snipcart"
   },

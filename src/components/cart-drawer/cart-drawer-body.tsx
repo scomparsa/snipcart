@@ -3,9 +3,10 @@ import { DeleteIcon } from '@chakra-ui/icons'
 import { Button, DrawerBody, Flex, HStack, Image, List, ListItem, Text, VStack } from '@chakra-ui/react'
 import Context, { ContextType } from '../../context'
 import MobileSpinner from './mobile-spinner'
+import PromoCode from './promo-code'
 
 export default memo(() => {
-  const { goodsDatum, cartQuantityMapping, setCartQuantityMapping } = useContext(Context) as ContextType
+  const { goodsDatum, total, cartQuantityMapping, setCartQuantityMapping } = useContext(Context) as ContextType
 
   const handleCartQuantityClear = useCallback(
     (id: number) => {
@@ -18,13 +19,15 @@ export default memo(() => {
     [setCartQuantityMapping]
   )
 
+  const listItemStyle = { margin: '0 -25px', padding: 35, borderBottom: '1px solid lightgray' }
+
   return (
     <DrawerBody>
       <List>
         {goodsDatum
           .filter(({ id }) => !!cartQuantityMapping[id])
           .map(({ id, cover, name, price }) => (
-            <ListItem marginLeft="-25px" marginRight="-25px" padding="35px" borderBottom="1px solid lightgray" key={id}>
+            <ListItem key={id} {...listItemStyle}>
               <VStack align="start" spacing={2}>
                 <Flex justify="space-between" align="center" width="100%">
                   <HStack>
@@ -56,6 +59,11 @@ export default memo(() => {
               </VStack>
             </ListItem>
           ))}
+        {!!Number(total) && (
+          <ListItem {...listItemStyle}>
+            <PromoCode />
+          </ListItem>
+        )}
       </List>
     </DrawerBody>
   )

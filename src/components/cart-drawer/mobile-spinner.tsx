@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import { Button, HStack, Input, useNumberInput } from '@chakra-ui/react'
 import type { SetCartQuantityMappingType } from '../../interface'
 
