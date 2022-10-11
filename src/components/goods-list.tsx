@@ -61,7 +61,7 @@ export default memo<Props>(({ goodsDatum, cartQuantityMapping, setCartQuantityMa
   return (
     <List width="100%">
       {goodsDatum.map(({ id, cover, name, desc, price }, idx) => (
-        <ListItem key={id} marginTop={!!idx ? 20 : 0}>
+        <ListItem key={id} marginTop={!!idx ? '20px' : 0}>
           <Flex justify="space-between" flexDirection={!!(idx % 2) ? 'row-reverse' : 'row'}>
             <Box w="50%">
               <VStack align="flex-start" spacing={4}>
@@ -74,7 +74,7 @@ export default memo<Props>(({ goodsDatum, cartQuantityMapping, setCartQuantityMa
                     QUANTITY
                   </Text>
                   <NumberInput
-                    width={100}
+                    width="100px"
                     min={1}
                     precision={0}
                     step={1}

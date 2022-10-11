@@ -5,7 +5,12 @@ import Context, { ContextType } from '../../context'
 import MobileSpinner from './mobile-spinner'
 import PromoCode from './promo-code'
 
-export default memo(() => {
+interface Props {
+  isFullSize: boolean
+  drawerContentWidth: string
+}
+
+export default memo<Props>(({ isFullSize, drawerContentWidth }) => {
   const { goodsDatum, total, cartQuantityMapping, setCartQuantityMapping } = useContext(Context) as ContextType
 
   const handleCartQuantityClear = useCallback(
@@ -19,20 +24,37 @@ export default memo(() => {
     [setCartQuantityMapping]
   )
 
-  const listItemStyle = { margin: '0 -25px', padding: 35, borderBottom: '1px solid lightgray' }
+  const listItemStyle = {
+    marginRight: '-25px',
+    marginLeft: '-25px',
+    marginBottom: '25px',
+    padding: '35px',
+    borderBottom: isFullSize ? '' : '1px solid lightgray',
+    backgroundColor: isFullSize ? '#FFF' : '',
+  }
 
   return (
-    <DrawerBody>
+    <DrawerBody margin="0 auto" width={drawerContentWidth} height="auto">
+      {!Number(total) && 'Your cart is empty.'}
       <List>
         {goodsDatum
           .filter(({ id }) => !!cartQuantityMapping[id])
-          .map(({ id, cover, name, price }) => (
+          .map(({ id, cover, name, desc, price }) => (
             <ListItem key={id} {...listItemStyle}>
               <VStack align="start" spacing={2}>
                 <Flex justify="space-between" align="center" width="100%">
-                  <HStack>
-                    <Image alt="starry-night" htmlWidth="40px" objectFit="cover" src={cover} />
-                    <strong>{name}</strong>
+                  <HStack align={isFullSize ? 'flex-start' : 'center'} spacing={isFullSize ? 5 : 2}>
+                    <Image alt="starry-night" htmlWidth={isFullSize ? '120px' : '40px'} objectFit="cover" src={cover} />
+                    <VStack align="flex-start" width={isFullSize ? '400px' : '100%'}>
+                      <Text fontWeight="bold" fontSize={isFullSize ? 'xl' : 'md'}>
+                        {name}
+                      </Text>
+                      {isFullSize && (
+                        <Text fontSize="sm" color="gray">
+                          {desc}
+                        </Text>
+                      )}
+                    </VStack>
                   </HStack>
                   <Button
                     borderRadius="50%"
@@ -45,21 +67,28 @@ export default memo(() => {
                     <DeleteIcon color="red.500" />
                   </Button>
                 </Flex>
-                <Text color="gray" fontWeight="300" fontSize="sm">
-                  Quantity
-                </Text>
-                <Flex justify="space-between" align="center" width="100%">
-                  <MobileSpinner
-                    id={id}
-                    defaultValue={cartQuantityMapping[id]}
-                    setCartQuantityMapping={setCartQuantityMapping}
-                  />
-                  <Text>{`$${(cartQuantityMapping[id] * price).toFixed(2)}`}</Text>
+                <Flex
+                  justify={isFullSize ? 'flex-end' : 'space-between'}
+                  align="center"
+                  width="100%"
+                  gap={isFullSize ? 10 : 0}
+                >
+                  <VStack align="flex-start" spacing="1">
+                    <Text color="gray" fontWeight="300" fontSize="sm">
+                      Quantity
+                    </Text>
+                    <MobileSpinner
+                      id={id}
+                      defaultValue={cartQuantityMapping[id]}
+                      setCartQuantityMapping={setCartQuantityMapping}
+                    />
+                  </VStack>
+                  <Text marginTop="20px">{`$${(cartQuantityMapping[id] * price).toFixed(2)}`}</Text>
                 </Flex>
               </VStack>
             </ListItem>
           ))}
-        {!!Number(total) && (
+        {!isFullSize && !!Number(total) && (
           <ListItem {...listItemStyle}>
             <PromoCode />
           </ListItem>
