@@ -15,3 +15,6 @@ export interface CartQuantityMapping {
 }
 
 export type SetCartQuantityMappingType = Dispatch<SetStateAction<CartQuantityMapping>>
+
+export type DrawerSize = string
+export type SetDrawerSizeType = Dispatch<SetStateAction<DrawerSize>>

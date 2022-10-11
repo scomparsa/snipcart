@@ -1,4 +1,4 @@
-import { memo, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { Box, Button, Container, Divider, Flex, Heading, VStack, useDisclosure } from '@chakra-ui/react'
 import starryNightImgUrl from 'assets/starry-night.jpg'
 import irisesImgUrl from 'assets/irises.jpg'
@@ -25,6 +25,8 @@ const MOCK_GOODS_DATUM: GoodsDatumType = [
 ]
 
 export default memo(() => {
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const [drawerSize, setDrawerSize] = useState('md')
   const [cartQuantityMapping, setCartQuantityMapping] = useState(
     MOCK_GOODS_DATUM.reduce((previousValue: CartQuantityMapping, currentValue) => {
       previousValue[currentValue.id] = 0
@@ -37,13 +39,26 @@ export default memo(() => {
 
     return previousValue
   }, 0).toFixed(2)
-  const { isOpen, onOpen, onClose } = useDisclosure()
+
+  useEffect(() => {
+    if (drawerSize === 'full') {
+      onOpen()
+    }
+  }, [drawerSize, onOpen])
 
   return (
-    <Context.Provider value={{ goodsDatum: MOCK_GOODS_DATUM, total, cartQuantityMapping, setCartQuantityMapping }}>
-      <Container maxW={1000}>
+    <Context.Provider
+      value={{
+        goodsDatum: MOCK_GOODS_DATUM,
+        total,
+        cartQuantityMapping,
+        setCartQuantityMapping,
+        setDrawerSize,
+      }}
+    >
+      <Container maxW="1000px">
         <VStack align="flex-start" spacing={10}>
-          <Heading width="100%" marginTop={5} size="xl">
+          <Heading width="100%" marginTop="20px" size="xl">
             <Flex justify="space-between">
               <Box>React Shopping Cart</Box>
               <Box>
@@ -58,7 +73,7 @@ export default memo(() => {
             cartQuantityMapping={cartQuantityMapping}
             setCartQuantityMapping={setCartQuantityMapping}
           />
-          <CartDrawer isOpen={isOpen} onClose={onClose} />
+          <CartDrawer drawerSize={drawerSize} isOpen={isOpen} onClose={onClose} setDrawerSize={setDrawerSize} />
           <footer />
         </VStack>
       </Container>

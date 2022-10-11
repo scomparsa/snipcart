@@ -1,7 +1,11 @@
 import { memo, useState, useCallback } from 'react'
 import { Button, Flex, InputGroup, Input, InputRightElement, Text } from '@chakra-ui/react'
 
-export default memo(() => {
+interface Props {
+  isFullSize?: boolean
+}
+
+export default memo<Props>(({ isFullSize }) => {
   const [active, setActive] = useState(false)
 
   const handleActive = useCallback(() => {
@@ -27,7 +31,7 @@ export default memo(() => {
       </Button>
     </Flex>
   ) : (
-    <Button width="100%" onClick={handleActive}>
+    <Button variant="outline" bgColor="white" width={isFullSize ? '400px' : '100%'} onClick={handleActive}>
       Promo code?
     </Button>
   )
